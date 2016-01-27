@@ -2,8 +2,9 @@ language: ruby
 rvm:
   - 2.0.0
 before_script:
+  - ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
   - secret=`openssl rsautl -decrypt -inkey ~/.ssh/id_rsa -in .chef/travis_secret`
   - openssl aes-256-cbc -k "$secret" -in .chef/travis-ci.pem.enc -d -a -out .chef/travis-ci.pem
 script:
-  - "knife cookbook list" 
+  - "knife cookbook list"
   - "bundle exec knife inspect"
