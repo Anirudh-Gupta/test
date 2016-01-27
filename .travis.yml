@@ -4,4 +4,6 @@ rvm:
 before_script:
   - secret=`openssl rsautl -decrypt -inkey ~/.ssh/id_rsa -in .chef/travis_secret`
   - openssl aes-256-cbc -k "$secret" -in .chef/travis-ci.pem.enc -d -a -out .chef/travis-ci.pem
-script: "bundle exec knife inspect"
+script:
+  - "knife cookbook list" 
+  - "bundle exec knife inspect"
